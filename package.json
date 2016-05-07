@@ -1,0 +1,14 @@
+{
+  "name": "update-git-packages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ks-admin": "github:KAESapps/ks-admin#a573f1e6428c8815731ee5a2c6ad4ae4980b1a87"
+  }
+}
