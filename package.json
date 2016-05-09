@@ -1,14 +1,17 @@
 {
   "name": "update-git-packages",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Tool for updating package.jon with current HEAD commit id of linked git dependencies",
+  "main": "cli.js",
   "scripts": {
-    "test": "test"
+    "test": "test/test"
   },
-  "author": "",
+  "author": "sylvain.vuilliot@kaes.fr",
   "license": "MIT",
   "dependencies": {
-    "ks-admin": "github:KAESapps/ks-admin#a573f1e6428c8815731ee5a2c6ad4ae4980b1a87"
+    "is-git-repo": "0.1.2"
+  },
+  "devDependencies": {
+    "blue-tape": "0.2.0"
   }
 }
