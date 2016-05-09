@@ -37,28 +37,36 @@ function startWith(string, start) {
 }
 
 function isGitDependency(depVersion) {
-  return startWith(depVersion, 'git+') || startWith(depVersion, 'github')
+  return startWith(depVersion, 'git+') || startWith(depVersion, 'github') || startWith(depVersion, 'git://')
 }
 
 function updateGitDependencies(pkgJson, rootPath) {
   var dependencies = pkgJson.dependencies
   var gitDependencies = Object.keys(dependencies).filter(depName => isGitDependency(dependencies[depName]))
+  console.log('git dependencies', gitDependencies)
   return Promise.all(gitDependencies.map(depName => {
     var depVersion = dependencies[depName]
     var repoPath = path.join(rootPath, depName)
     return isGitRepoPromise(repoPath)
     .then(res => {
       if (!res) return null
+      console.log('local git repo found for', depName, 'at', repoPath)
       return getGitHeadSha(repoPath).then(sha => {
+        console.log(depName, 'HEAD sha is', sha)
         var depVersionStart = depVersion.split('#')[0]
         return [depVersionStart, sha].join('#')
       })
     })
-  })).then(newVersions => {
-    newVersions.forEach((newVersion, i) => {
-      if (typeof newVersion === 'string') {
+  })).then(latestVersions => {
+    latestVersions.forEach((latestVersion, i) => {
+      if (typeof latestVersion === 'string') {
         var depName = gitDependencies[i]
-        pkgJson.dependencies[depName] = newVersion
+        if (pkgJson.dependencies[depName] !== latestVersion) {
+          pkgJson.dependencies[depName] = latestVersion
+          console.log(depName, "updated to", latestVersion)
+        } else {
+          console.log(depName, "already uptodate")
+        }
       }
     })
     return pkgJson
