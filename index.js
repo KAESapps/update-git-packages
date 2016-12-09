@@ -49,7 +49,10 @@ function updateGitDependencies(pkgJson, rootPath) {
     var repoPath = path.join(rootPath, depName)
     return isGitRepoPromise(repoPath)
     .then(res => {
-      if (!res) return null
+      if (!res) {
+        console.log('no local git repo found for', depName, 'at', repoPath)
+        return null
+      }
       console.log('local git repo found for', depName, 'at', repoPath)
       return getGitHeadSha(repoPath).then(sha => {
         console.log(depName, 'HEAD sha is', sha)
