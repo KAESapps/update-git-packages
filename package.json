@@ -1,6 +1,6 @@
 {
   "name": "update-git-packages",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Tool for updating package.jon with current HEAD commit id of linked git dependencies",
   "main": "cli.js",
   "scripts": {

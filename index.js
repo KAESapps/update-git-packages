@@ -113,10 +113,10 @@ exports.default = function (packagePath) {
     .then((pkgJson) =>
       updateGitDependencies(pkgJson, path.join(packagePath, "node_modules"))
     )
-    .then(
-      (pkgJson) =>
-        updateGitDependencies(pkgJson, path.join(packagePath, "node_modules")),
-      { devDependencies: true }
+    .then((pkgJson) =>
+      updateGitDependencies(pkgJson, path.join(packagePath, "node_modules"), {
+        devDependencies: true,
+      })
     )
     .then((pkgJson) => writePackageJson(pkgJson, packagePath));
 };
